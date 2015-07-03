@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/static/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.freezeheader.js"></script>
+      <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+ <script language="javascript" type="text/javascript">
+
+        $(document).ready(function () {
+            $("#table1").freezeHeader({ 'height': '300px' });
+	    $("#table2").freezeHeader();
+			    
+	   $("#tbex1").freezeHeader();
+            $("#tbex2").freezeHeader();
+            $("#tbex3").freezeHeader();
+            $("#tbex4").freezeHeader();	
+        })
+    </script>
+  </head>
+  <body>
+    
+<a name="jqueryfreezeheader-" href="#jquerycookie-"></a>
+
+
+
+
+        <table class="gridView" id="tbex4">
+            <thead class="tableHeader-processed">
+                <tr>
+                    <th colspan="4"><strong>有{{ cont }}条记录，需要更新{{ all_event }}条</strong><form action="update_event" method="get">
+
+                        <input type="submit" value="更新">
+                    </form></th>
+                </tr>
+                <tr>
+                    <th>嘉宾名称</th>
+                    <th>id</th>
+                    <th>互动家ID</th>
+                    <th>活动家定位按钮</th>
+                     <th>百度百科定位按钮</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr class="grid">
+                    <td>af-ZA</td>
+                    <td>Afrikaans - South Africa</td>
+                    <td>0x0436</td>
+                    <td>AFK</td>
+                </tr>-->
+                {% for s in kk %}
+                <tr class="gridAlternada">
+                <form action="saves" method="get">
+                    <input type="hidden" value="{{ s.page }}" name="page">
+                    <input type="hidden" value="{{ s.id }}" name="id">
+                    <td><input type="text" value="{{ s.username}}" name="username"></td>
+                    <td>{{ s.id }}</td>
+                    <td> <input type="text" value="{{ s.cat_id }}" name="cat_id"></td>
+                    <td><a href="{{ s.homeurl }}" >活动家定位</a></td>
+                    <td><a href="http://baike.baidu.com/search/word?word={{ s.username }}" >百度百科定位</a></td>
+                    <td><input value="更新" type="submit"></td></form>
+                    <td>
+                        <form action="delete" method="get">
+                            <input type="hidden" value="{{ s.page }}" name="page">
+                            <input type="hidden" value="{{ s.id }}" name="delete">
+                        <input value="删除" type="submit">
+                            </form>
+                            <form action="/jiabin/jiabin_edit" method="get">
+                            <input type="hidden" value="{{ s.page }}" name="page">
+                            <input type="hidden" value="{{ s.id }}" name="user_id">
+                        <input value="详细编辑" type="submit">
+                    </form>
+                    </td>
+                </tr>
+                {% endfor %}
+
+
+            </tbody>
+
+        </table>
+<td><form action="add_event" method="get">
+               名称: <input type="text" name="username">
+            活动家id：<input type="text" name="event_id">
+            <input type="submit" value="提交">
+                    </form></td>
+<a href="http://apitest.huodongjia.com/jiabin/home/1" >第一页</a>
+<a href="http://apitest.huodongjia.com/jiabin/home/{{ lastPage }}" >上一页</a>
+  <a href="http://apitest.huodongjia.com/jiabin/home/{{ nextPage }}" >下一页</a>
+<form action="homex" method="get">
+
+第<input type="text" name="xpage" name="xpage">页
+
+    <input type="submit" value="确定" >
+    </form>
+<a href="http://apitest.huodongjia.com/jiabin/home/{{ endPage }}" >最后一页</a></br>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</body>
+</html>

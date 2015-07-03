@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block myStyle %}
+<link rel="stylesheet" type='text/css' href='http://pic1.qkan.com/static/css/guest.css'>
+{% endblock %}
+{% block head %}
+{% autoescape off %}
+<title>会议经纪信息大全_会议嘉宾介绍_活动家</title>
+<meta name="description" content="找会议经纪信息，就到活动家huodongjia.com！活动家提供最新最全的会议经纪信息，会议嘉宾详细介绍，以及该会议嘉宾近期参加的会议。还能推荐优质会议嘉宾，免费发布会议嘉宾信息，是你查询会议嘉宾的最佳途径。" />
+<meta name="keywords" content="会议经纪,会议嘉宾,会议嘉宾信息" />
+{% endautoescape %}
+{% endblock %}
+{% block m_site %}{% endblock %}
+{% block content %}
+<div id="ceng"></div>
+<div class="banner">
+    <img src="http://pic.huodongjia.com/static/images/guest.jpg" alt="活动家">
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_header">
+            <ul class="col-lg-7 col-md-7 col-xs-7 col-sm-7 ul_left">
+                <li><a href="/" target="_blank">活动家</a>&gt;</li>
+                <li><a href="/jiabin/"><h1>会议嘉宾列表</h1></a></li>
+            </ul>
+            <form action="/jiabin/Search_guest/" method="get" id="myForm" class="col-lg-3 col-md-3 col-xs-3 col-sm-3 col-lg-offset-2">
+                <input type="text"  class="search" name="keyword" id="centerSearch" placeholder="请输入嘉宾名字">
+                <a href="javascript:login()"><img src="http://pic.huodongjia.com/static/images/iconfont-search.png"  alt="活动家会议嘉宾"></a>
+            </form>
+        </div>
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 content">
+                <img src="http://pic.huodongjia.com/static/images/loop_rleft.png" alt="活动家会议嘉宾" class="loop_rleft img-left">
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 div_show">
+                <ul class="show_ul">
+                    {% for event in data|slice:":6" %}
+
+                    <li class="col-lg-4 col-md-4  col-sm-6 col-xs-12 content_list">
+                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 content_list">
+                    <div class="con_list">
+                        <!--{{ event.jiabin_pic }}-->
+                        <div class="col-lg-6 col-md-6  col-sm-6 col-xs-6  img_div" style="height: 100%">
+                            <img src="{{  event.picurl }}" alt="{{ event.jiabin_company }}{{ event.jiabin_name }}" class="click_img">
+                            <img src="{{  event.picurl }}" alt="{{ event.jiabin_company }}{{ event.jiabin_name }}" class="click_imgs">
+                        </div>
+                        <div class="col-lg-6 col-md-6  col-sm-6 col-xs-6 info">
+                            <input type="hidden" name="userid" value="{{event.user_id}}">
+                            <h2 class="guestName">{{ event.jiabin_name }}</h2>
+                            <p class="guestWork">{{ event.jiabin_position }}</p>
+                            <p class="guestCompany">{{ event.jiabin_company }}</p>
+                            <p class="guestTime">{{event.time_now}}</p>
+                            <a href="{{event.guest_invitation_url}}" target="_blank" class="info_a">发邀请</a>
+                        </div>
+                    </div>
+                </div>
+                        <div class="meeasge_div" style="display:none;">
+                            <span class="glyphicon glyphicon-remove" id="glyphicon-remove"></span>
+                            <div class="meeasge_book">
+                                <div class="left">
+                                    <img src="{{  event.picurl }}" alt="{{ event.jiabin_company }}{{ event.jiabin_name }}">
+                                    <p class="guestName">{{ event.jiabin_name }}</p>
+                                    <p class="guestWork">{{ event.jiabin_position }}</p>
+                                    <p class="guestCompany">{{ event.jiabin_company }}</p>
+                                </div>
+                                <div class="intro">
+                                    {{ event.jiabin_intro }}
+                                </div>
+                                {% for i in event.title   %}
+                                <div class="meeting">
+                                    <span class="meeting_time"><a class="red"></a>&nbsp;&nbsp; {{ i.begin_time }}</span>
+                                    <p class="meeting_name">出席会议:{{ i }}</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div style="text-align: center">
+                                <a  href="{{event.guest_invitation_url}}" target="_blank" id="send_message" class="send_message">发送邀请</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+                </div>
+                <img src="{{  event.picurl }}" alt="活动家会议嘉宾" class="loop_rleft img-right">
+                {% for event in data %}
+
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 content_title">
+                    <img src="http://pic.huodongjia.com/static/images/guest_right.png" alt="活动家会议嘉宾" class="col-lg-5 col-md-5 col-xs-5 col-sm-5">
+                    <span class="col-lg-2 col-md-2 col-xs-2 col-sm-2">{{ event.cat_name }}<a href="{{  event.jiabin_more }}" target="_blank">More>></a></span>
+                    <img src="http://pic.huodongjia.com/static/images/guest_left.png" alt="活动家会议嘉宾" class="col-lg-5 col-md-5 col-xs-5 col-sm-5">
+                </div>
+                <div class="col-lg-4 col-md-4  col-sm-6 col-xs-12 content_list">
+                    <div class="con_list">
+                        <!--{{ event.jiabin_pic }}-->
+                        <div class="col-lg-6 col-md-6  col-sm-6 col-xs-6  img_div" style="height: 100%">
+                            <img src="{{  event.picurl }}" alt="{{ event.jiabin_company }}{{ event.jiabin_name }}" class="click_img">
+                            <img src="{{  event.picurl }}" alt="{{ event.jiabin_company }}{{ event.jiabin_name }}" class="click_imgs">
+                        </div>
+                        <div class="col-lg-6 col-md-6  col-sm-6 col-xs-6 info">
+                            <input type="hidden" name="userid" value="{{event.user_id}}">
+                            <h2 class="guestName">{{ event.jiabin_name }}</h2>
+                            <p class="guestWork">{{ event.jiabin_position }}</p>
+                            <p class="guestCompany">{{ event.jiabin_company }}</p>
+                            <p class="guestTime">{{event.time_now}}</p>
+                            <a href="{{event.guest_invitation_url}}" target="_blank">发邀请</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="meeasge_div" style="display:none;">
+                    <span class="glyphicon glyphicon-remove" id="glyphicon-remove"></span>
+                    <div class="meeasge_book">
+                        <div class="left">
+                            <img src="{{  event.picurl }}" alt="{{ event.jiabin_company }}{{ event.jiabin_name }}">
+                            <p class="guestName">{{ event.jiabin_name }}</p>
+                            <p class="guestWork">{{ event.jiabin_position }}</p>
+                            <p class="guestCompany">{{ event.jiabin_company }}</p>
+                        </div>
+                        <div class="intro">
+                            {{ event.jiabin_intro }}
+                        </div>
+                        {% for i in event.title   %}
+                        <div class="meeting">
+                            <span class="meeting_time"><a class="red"></a>&nbsp;&nbsp; {{ i.begin_time }}</span>
+                            <p class="meeting_name">出席会议:{{ i }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div style="text-align: center">
+                        <a  href="{{event.guest_invitation_url}}" target="_blank" id="send_message" class="send_message">发送邀请</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block myscript %}
+<script type="text/javascript" src="http://pic1.qkan.com/static/js/guest_list.js"></script>
+{% endblock %}
+

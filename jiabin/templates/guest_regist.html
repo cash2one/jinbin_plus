@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block myStyle %}
+<link rel="stylesheet" href="http://pic1.qkan.com/static/css/guest_regist.css">
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+{% endblock %}
+{% block head %}
+{% autoescape off %}
+<title>会议经纪信息大全_注册成为会议嘉宾_活动家</title>
+<meta name="description" content="找会议经纪信息，就到活动家huodongjia.com！活动家提供最新最全的会议经纪信息，会议嘉宾详细介绍，以及该会议嘉宾近期参加的会议。还能推荐优质会议嘉宾，免费发布会议嘉宾信息，是你查询会议嘉宾的最佳途径。" />
+<meta name="keywords" content="会议经纪,会议嘉宾,会议嘉宾信息" />
+{% endautoescape %}
+{% endblock %}
+{% block m_site %}{% endblock %}
+{% block content %}
+<div class="banner">
+    <img src="http://pic.huodongjia.com/static/images/guest_regist.png" alt="活动家">
+</div>
+<div class="header_title">
+    <h3>立即填写以下信息，成为演讲嘉宾</h3>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 content">
+            <div class="col-lg-8 col-md-8 col-xs-8 col-sm-8 left">
+                <div class="col-lg-7 col-md-7 col-xs-7 col-sm-7 contact">
+                    <div>
+                        <h4><span class="mustFill">&lowast;</span>&nbsp;<label for="name">姓名：</label></h4>
+                        <input class="user_name form-control" id="name" name="name" type="text" data-judge="false">
+                    </div>
+                    <div>
+                        <h4><span class="mustFill">&lowast;</span>&nbsp;<label for="mobilphone">联系电话：</label></h4>
+                        <input type="text" name="mobilphone" id="mobilphone" class="mobilphone form-control" style="width: 52%;float: left;"><a class="TestGetCode">获取验证码</a>
+                    </div>
+                    <div style="display:none" id="cap">
+                        <h4><span class="mustFill">&lowast;</span>&nbsp;<label for="captcha">验证码：</label></h4>
+                        <input data-captcha="" class="captcha form-control" id="captcha" name="captcha" type="text">
+                    </div>
+                    <div>
+                        <h4><span class="mustFill">&lowast;</span>&nbsp;<label for="industry">所属行业：</label></h4>
+                        <select id="industry">
+                            {% for cat in data %}
+                            <option value="{{ cat.cat_value}}">{{ cat.cat_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 pic">
+                    <div class="Upload">
+                        <h4>点击上传照片</h4>
+                        <p><img id="imgView" alt="会议嘉宾" src="" /></p>
+                        <p><input type="file" id="file1" name="imgView" onchange="PreviewImage(this,'imgView','divNewPreview')"/></p>
+                        <div id="divNewPreview"></div>
+                    </div>
+                    <span class="mustFills">照片上传要求：</span><br>
+                    <span>1、图片不大于2MB</span><br>
+                    <span>2、图片格式为：JPG、GIF、PGN</span>
+                </div>
+                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 resume">
+                    <div>
+                    <h4><label>阅历介绍：</label></h4>
+                        <textarea cols="40" rows="15" placeholder="请在此输入你的个人介绍或演讲经历" id="textarea"></textarea>
+                    </div>
+                    <div style="text-align: center">
+                        <a id="sendMessage">确认提交</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 right">
+                <h4>关于演讲嘉宾</h4>
+                <h5>1.为什么要成为演讲嘉宾？</h5>
+                <div class="info">
+                    <p>建立你的个人品牌，让与会者成为你的粉丝。</p>
+                    <p>传播你的影响力，获取你的演讲收益。</p>
+                    <p>活动家为作为你的会议经纪人，为你量身打造会议和个人演讲。</p>
+                </div>
+                <h5>2.怎么成为演讲嘉宾？</h5>
+                <div class="info">
+                    <p> 按要求填写演讲者信息并上传照片。</p>
+                    <p>个人信息审核通过后，我们会安排专人与你取得联系并核对信息。</p>
+                    <p>恭喜你，已获得活动家演讲嘉宾认证，成为活动家合作的演讲嘉宾。</p>
+                </div>
+                <h5>3.成为演讲者有什么要求？</h5>
+                <div class="info">
+                    <p style="margin-top: 20px;">或者你有精彩的故事诉说。</p>
+                    <p>或者你在某个行业有丰富的经验.</p>
+                    <p>欢迎来活动家报名，实现你的演讲梦。</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div style="height: 50px"></div>
+{% endblock %}
+{% block myscript %}
+<script src="http://pic1.qkan.com/static/js/guest_regist.js"></script>
+<!--<script src="http://pic1.qkan.com/static/js/ajaxfileupload.js"></script>-->
+<script src="http://pic1.qkan.com/static/js/ajaxfile.js"></script>
+<script type="text/javascript" src="http://pic1.qkan.com/static/js/guest_list.js"></script>
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+{% endblock %}

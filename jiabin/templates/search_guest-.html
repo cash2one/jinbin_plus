@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block myStyle %}
+<link rel="stylesheet" type='text/css' href='http://pic1.qkan.com/static/css/guest.css'>
+{% endblock %}
+{% block head %}
+{% autoescape off %}
+<title>会议主办方信息大全_主办单位介绍_活动家</title>
+<meta name="description" content="找会议主办方信息，就到活动家huodongjia.com！会议主办方是举办会议的单位，活动家提供最新最全的会议主办方信息，主办单位详细介绍，以及该主办方近期举行的会议。还能推荐优质主办方，免费发布会议信息，是你查询主办方的最佳途径。" />
+<meta name="keywords" content="会议主办方,会议主办单位,主办方信息" />
+{% endautoescape %}
+{% endblock %}
+{% block m_site %}{% endblock %}
+{% block content %}
+<div class="banner">
+    <img src="http://pic.huodongjia.com/static/images/guest.jpg" alt="活动家">
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_header">
+            <ul class="col-lg-7 col-md-7 col-xs-7 col-sm-7 ul_left">
+                <li><a href="/" target="_blank">活动家</a>&gt;</li>
+                <li><a href="/listsponsor/">会议嘉宾列表</a>&gt;</li>
+                <li><a href="/listsponsor/"><h1>嘉宾搜索</h1></a></li>
+            </ul>
+            <form action="/jiabin/index/Search_guest/" method="get" id="myForm" class="col-lg-3 col-md-3 col-xs-3 col-sm-3 col-lg-offset-2">
+                <input type="text"  class="search" name="keyword" id="centerSearch" placeholder="请输入嘉宾名字">
+                <a href="javascript:login()"><img src="http://pic.huodongjia.com/static/images/iconfont-search.png"  alt="活动家会议嘉宾"></a>
+            </form>
+        </div>
+        {% if data %}
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 content">
+            {% for event in data %}
+            <div class="col-lg-4 col-md-4  col-sm-6 col-xs-12 content_list">
+                <div class="con_list" >
+                    <!--{{ event.jiabin_pic }}-->
+                    <div class="col-lg-6 col-md-6  col-sm-6 col-xs-6  img_div" style="height: 100%">
+                        <img src="{{  event.0.picurl }}" alt="{{ event.0.jiabin_company }}{{ event.0.jiabin_name }}" class="click_img">
+                        <img src="http://pic.huodongjia.com/static/images/guest_div.png" alt="{{ event.jiabin_company }}{{ event.jiabin_name }}" class="click_imgs">
+                    </div>
+                    <div class="col-lg-6 col-md-6  col-sm-6 col-xs-6 info">
+                        <input type="hidden" name="userid" value="{{event.user_id}}">
+                        <h2 class="guestName">{{ event.jiabin_name }}</h2>
+                        <p class="guestWork">{{ event.jiabin_position }}</p>
+                        <p class="guestCompany">{{ event.jiabin_company }}</p>
+                        <p class="guestTime">{{event.time_now}}</p>
+                        <a href="{{event.guest_invitation_url}}" target="_blank">发邀请</a>
+                    </div>
+                </div>
+            </div>
+            <div class="meeasge_div" style="display:none;">
+                <span class="glyphicon glyphicon-remove" id="glyphicon-remove"></span>
+                <div class="meeasge_book">
+                    <div class="left">
+                        <img src="http://pic.huodongjia.com/static/images/guest_info.png" alt="{{ event.jiabin_company }}{{ event.jiabin_name }}">
+                        <p class="guestName">{{ event.jiabin_name }}</p>
+                        <p class="guestWork">{{ event.jiabin_position }}</p>
+                        <p class="guestCompany">{{ event.jiabin_company }}</p>
+                    </div>
+                    <div class="intro">
+                        {{ event.jiabin_intro }}
+                    </div>
+                </div>
+                <div class="hr"></div>
+                <div class="meeting">
+                    <span class="meeting_time"><a class="red"></a>&nbsp;&nbsp;{{ event.old_event_time }}2015年5月9日</span>
+                    <p class="meeting_name">出席会议:{{  event.old_event_guest  }}</p>
+                </div>
+                <div style="text-align: center">
+                    <a href="{{event.guest_invitation_url}}" target="_blank" id="send_message" class="send_message">发送邀请</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 content">
+            <p style="margin-top: 5em;text-align: center">暂时没有此嘉宾的信息...</p>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 slist_foot">
+                <div class="paginationWrapper">
+                    {% autoescape off %}
+                    <ul class="pagination dhd_pagination list-inline">
+                        {% ifnotequal firstPage 'false'%}
+                        <li><a href="{{firstPage}}">首页</a></li>
+                        {% endifnotequal %}
+                        {% if pageList %}
+                        {% for page in pageList %}
+                        {% ifequal page.flag "true"%}
+                        <li><a href="{{page.pageurl}}" class="currentPage">{{page.page}}</a><li>
+                        {% else %}
+                        <li><a class="a_href" href="{{page.pageurl}}">{{page.page}}</a><li>
+                        {% endifequal %}
+                        {% endfor %}
+                        {% endif %}
+                        {% if countpage %}
+                        {% ifnotequal lastPage 'false'%}
+                        <li style="color:#428bca;font-size:2em;position: relative;bottom: .6em;">...</li>
+                        {% endifnotequal %}
+                        {% endif %}
+                        {% ifnotequal nextPage 'false'%}
+                        <li><a href="{{nextPage}}">下一页</a><li>
+                        <li><a href="{{lastPage}}">最后一页</a></li>
+                        {% endifnotequal %}
+                    </ul>
+                    {% endautoescape %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block myscript %}
+<script type="text/javascript" src="http://pic1.qkan.com/static/js/guest_list.js"></script>
+{% endblock %}
+

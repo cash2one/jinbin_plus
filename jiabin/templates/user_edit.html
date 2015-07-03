@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+
+<title>无标题文档</title>
+</head>
+
+<body>
+<p><img src="/site_media/data/web/ftptest/log_save/jiabin/static/images/a.png"   width="400" height="400"/></p>
+<form action="img_user_save"  enctype="multipart/form-data" method="post">
+
+    上传图片:<input type="file"  name="user_file" ></br>
+     <input type="hidden" value="{{ user_id }}" name="user_id">
+    <input type="submit" value="提交">
+</form>
+<form action="event_user_save" method="get">
+
+
+嘉宾库id:{{    user_id }}<br>
+    <input type="hidden" value="{{ user_id }}" name="user_id">
+嘉宾名称:<input type="text" value="{{  event_username }}" name="event_username"></br>
+活动id:<input type="text" value="{{  event_id }}" name="event_id"></br>
+活动名称:<input type="text" value="{{  event_name }}" name="event_name"></br>
+活动类型编号:<input type="text" value="{{  event_cat }}" name="event_cat"></br>
+
+百度百科:<input type="date" value="{{  event_baikeURL }}" name="event_baikeURL"></br>
+活动家:<input type="date" value="{{  event_homeurl }}" name="event_homeurl"></br>
+简介:<textarea  cols="60" rows="15"  name="event_introduce">{{  event_introduce }}</textarea></br>
+<label><input name="is_com" type="radio" value="1" />推荐 </label>
+<label><input name="is_com" type="radio" value="0"  checked="checked"/>不推荐 </label>
+<input type="submit" value="提交">
+</form>
+
+</body>
+</html>

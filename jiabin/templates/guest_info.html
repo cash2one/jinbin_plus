@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block myStyle %}
+<link rel="stylesheet" type='text/css' href='http://pic1.qkan.com/static/css/guest_info.css'>
+<link rel="stylesheet" type="text/css" href="http://pic.huodongjia.com/static/css/sweet-alert.css">
+{% endblock %}
+{% block head %}
+{% autoescape off %}
+<title>会议经纪信息大全_会议嘉宾邀请_活动家</title>
+<meta name="description" content="找会议经纪信息，就到活动家huodongjia.com！活动家提供最新最全的会议经纪信息，会议嘉宾详细介绍，以及该会议嘉宾近期参加的会议。还能推荐优质会议嘉宾，免费发布会议嘉宾信息，是你查询会议嘉宾的最佳途径。" />
+<meta name="keywords" content="会议经纪,会议嘉宾,会议嘉宾信息" />
+{% endautoescape %}
+{% endblock %}
+{% block m_site %}{% endblock %}
+{% block content %}
+<div class="banner">
+    <img src="http://pic.huodongjia.com/static/images/guest.jpg" alt="活动家">
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 spon_header">
+            <ul class="col-lg-12 col-md-12 col-xs-12 col-sm-12 ul_left">
+                <li><a href="/" target="_blank">活动家</a>&gt;</li>
+                <li><a href="/jiabin/">嘉宾列表</a>&gt;</li>
+                <li><a><h1>邀请嘉宾</h1></a></li>
+            </ul>
+        </div>
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 content">
+            {% for event in data %}
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12  meeasge_div">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 pic">
+                    <img src="{{  event.picurl }}" alt="{{ event.jiabin_company }}{{ event.jiabin_name }}">
+                    <p class="guestName">{{ event.jiabin_name }}</p>
+                    <p class="guestWork">{{ event.jiabin_position }}</p>
+                    <p class="guestCompany">{{ event.jiabin_company }}</p>
+                </div>
+                <div class="col-lg-10 col-md-10 col-xs-10 col-sm-10 intro">
+                    {{ event.jiabin_intro }}
+                    <!--<span class="more">了解更多>></span>-->
+                </div>
+                <div class="col-lg-10 col-md-10 col-xs-10 col-sm-10 col-lg-offset-1 hr"></div>
+            </div>
+            <input type="hidden" value="{{ event.user_id}}" id="ids">
+            {% endfor %}
+            <div class="col-lg-8 col-md-8 col-xs-8 col-sm-8 col-lg-offset-2  meeasge_form">
+                <form action="/jiabin/send_guest_invitation/" method="post" id="guest">
+                    <div>
+                        <h4 class="info">邀请人信息</h4>
+                    </div>
+                    <div>
+                        <h4><span class="mustFill">&lowast;</span>&nbsp;<label for="company">邀请人单位 (主办单位)：</label></h4>
+                        <input class="company form-control" id="company" name="company" type="text" data-judge="false">
+                        <p class="mustFill" style="margin-top: 10px;font-size:0.9em">多个主办方请用逗号“ , ”隔开</p>
+                    </div>
+                    <div>
+                        <h4><span class="mustFill">&lowast;</span>&nbsp;<label for="meeting">主办会议名称：</label></h4>
+                        <input class="meeting form-control" id="meeting" name="meeting" type="text" data-judge="false">
+                    </div>
+                    <div>
+                        <h4><span class="mustFill">&lowast;</span>&nbsp;<label for="name">联系人：</label></h4>
+                        <input class="user_name form-control" id="name" name="name" type="text" data-judge="false">
+                    </div>
+                    <div>
+                        <h4><span class="mustFill">&lowast;</span>&nbsp;<label for="mobilphone">联系电话：</label></h4>
+                        <input type="text" name="mobilphone" id="mobilphone" class="mobilphone form-control" style="width: 70%;display: inline;"><a class="TestGetCode">获取验证码</a>
+                    </div>
+                    <div>
+                        <h4><span class="mustFill">&lowast;</span>&nbsp;<label for="captcha">验证码：</label></h4>
+                        <input type="text" name="captcha" id="captcha" class="captcha form-control">
+                    </div>
+                    <div>
+                        <h4><span class="mustFill">&lowast;</span>&nbsp;<label for="message">补充信息：</label></h4>
+                        <textarea name="message" class="form-control" id="message" cols="40" rows="4" placeholder="请将需要嘉宾了解的信息填写在这里。"></textarea>
+                    </div>
+                    <input type="hidden" name="in_company" class="in_company">
+                    <input type="hidden" name="in_meeting" class="in_meeting">
+                    <input type="hidden" name="event_id"   class="event_id"/>
+                    <input type="hidden" name="in_name"    class="in_name"/>
+                    <input type="hidden" name="in_mobilphone" class="in_mobilphone"/>
+                    <input type="hidden" name="in_message" class="in_message"/>
+                    <input type="hidden" name="in_guest" class="in_guest"/>
+                    <div style="text-align: center">
+                        <a id="send_message">确认发送</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block myscript %}
+<script type="text/javascript" src="http://pic1.qkan.com/static/js/guest_info.js"></script>
+<script src="http://pic.huodongjia.com/static/js/sweet-alert.min.js"></script>
+{% endblock %}
+
